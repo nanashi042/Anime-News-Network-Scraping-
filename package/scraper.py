@@ -2,7 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 
 data = requests.get("https://www.animenewsnetwork.com")
-soup = BeautifulSoup(data.text, 'html.parser')
+
+
+with open("./data/website.html", "r", encoding="utf-8") as f:
+    html_data = f.read()
+soup = BeautifulSoup(data.text, 'html.parser') 
 
 def get_image():
     img_lst = []
@@ -23,5 +27,12 @@ def get_name():
         name_list.append(names.split(","))
     return name_list
 
-names = get_name()
-print(names[1])
+
+
+mydivs = soup.findAll('span', {"class" : "intro"})
+print(mydivs[0].text)
+# for div in mydivs:
+#     print(div.text)
+
+# names = get_name()
+# print(names[1])
